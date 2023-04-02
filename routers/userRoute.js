@@ -1,15 +1,13 @@
 const router = require('express').Router();
 
+// ekhane userController theke login function k variable akare import kora hoyeche
+const { login, register } = require('../controllers/userController.js');
+
 // Registration Router
 // localhost:4000/api/users/register
-router.post('/register', (req, res) => {});
+router.post('/register', register);
 
 //login Router
 // localhost:4000/api/users/login
-router.post('/login', (req, res) => {
-  res.json({
-    message: 'Hello , this is from login',
-  });
-});
-
+router.post('/login', login);
 module.exports = router;

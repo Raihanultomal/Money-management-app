@@ -17,3 +17,14 @@ Step_3:
     -amader prottek kajer jonne alada alada router/api drkr hobe. jemon (user api, loging api, register api etc)
     -ekhane muloto login and register router niye kaj kora hoyeche.
     -api gulo thik vabe kaj kortese kina seta check korar jonne amra POSTMAN er help niyechi
+
+Step_4:
+
+    -ekhane muloto user control niye kaj kora hobe.
+    -user registration korte chaile segulo velidation kora hobe.
+    -amra ei kaj gulo controller namer ekta folder er modde korbo karon router er modde korle elo,melo hoye jabe.
+    -router er kaj route kora, tai controlling er kaj alada folder e korbo
+    -ekhane login and registration er validation niye kaj kora hoyeche.
+    -validation chek korar jonne ekta npm packge install korte hobe (npm install validator)
+    -validation korar jonne validator namer ekta folder create kora hoyeche. and shob condition sekhane dea hoyeche(kiser upor vitti kore validation kora hobe)
+    -password hashing er jonne ekta npm tools install korte hobe  (npm i bcrypt)
