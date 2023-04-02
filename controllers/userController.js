@@ -1,6 +1,9 @@
 const registerValidator = require('../validator/registerValidator');
+const loginValidator = require('../validator/loginValidator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../model/User');
+const { serverError, resourceError } = require('../util/error');
 
 module.exports = {
   // login controller
@@ -8,15 +11,51 @@ module.exports = {
   // er pore just ei controller k router e import korlei hobe
   // jemon user router e nicher likha login function k import kora hobe
   login(req, res) {
-    //nicher dui vabei distructure kora jabe
+    // login validation er jonne nicher kaj gulo korte hobe
+    // Extract data from request
+    // Validate Data
+    // Check for user availability
+    // Compare Password
+    // Generate token and response Back
 
-    const { name, email } = req.body;
-    // let name = req.body.name;
-    // let email = req.body.email;
+    let { email, password } = req.body;
+    let validate = loginValidator({ email, password });
 
-    res.json({
-      message: `Welcome ${name}, your given email is ${email}`,
-    });
+    if (!validate.isValid) {
+      return res.status(400).json(validate.error);
+    }
+
+    User.findOne({ email })
+      .then((user) => {
+        if (!user) {
+          return resourceError(res, 'User Not Found');
+        }
+        bcrypt.compare(password, user.password, (err, result) => {
+          if (err) {
+            return serverError(res, err);
+          }
+          if (!result) {
+            return resourceError(res, "Password Doesn't Match");
+          }
+          // jwt er maddhome login er pore user k ekta token dea hoy
+
+          let token = jwt.sign(
+            {
+              _id: user._id,
+              name: user.name,
+              email: user.email,
+            },
+            'SECRET',
+            { expiresIn: '2h' }
+          );
+
+          res.status(200).json({
+            message: 'Login Successful',
+            token: `Bearer ${token}`,
+          });
+        });
+      })
+      .catch((error) => serverError(res, error));
   },
 
   register(req, res) {
@@ -35,50 +74,39 @@ module.exports = {
       password,
       confirmPassword,
     });
+
     if (!validate.isValid) {
-      res.status(400).json(validate.error);
+      return res.status(400).json(validate.error);
     } else {
       User.findOne({ email })
         .then((user) => {
           if (user) {
-            return res.status(400).json({
-              message: 'Email already exist',
-            });
+            return resourceError(res, 'Email Already Exist');
           }
+
           bcrypt.hash(password, 11, (err, hash) => {
             if (err) {
-              return res.status(500).json({
-                message: 'Server error occurred',
-              });
+              return resourceError(res, 'Server Error Occurred');
             }
+
             let user = new User({
               name,
               email,
               password: hash,
             });
+
             user
               .save()
               .then((user) => {
                 res.status(201).json({
-                  message: 'User created Successfully',
+                  message: 'User Created Successfully',
                   user,
                 });
               })
-              .catch((error) => {
-                console.log(error);
-                res.status(500).json({
-                  message: 'Server errror occurred',
-                });
-              });
+              .catch((error) => serverError(res, error));
           });
         })
-
-        .catch((error) => {
-          console.log(error);
-          res.status(500).json({
-            message: 'Server errror ',
-          });
-        });
+        .catch((error) => serverError(res, error));
     }
   },
 };

@@ -28,3 +28,10 @@ Step_4:
     -validation chek korar jonne ekta npm packge install korte hobe (npm install validator)
     -validation korar jonne validator namer ekta folder create kora hoyeche. and shob condition sekhane dea hoyeche(kiser upor vitti kore validation kora hobe)
     -password hashing er jonne ekta npm tools install korte hobe  (npm i bcrypt)
+
+Step_5:
+
+    -login validation niye kaj kora hobe
+    -registration validation e error handeling er bepar ta edit kora hoyeche.
+    -try-catch er catch k handle korar jonne util namer ekta folder create kora hoyeche. er por sekhane catch er shob error handle kora hoyeche
+    -ekhon porjonto amra frontend niye kono kaj korini. step_1-5 just backend er jonne prostut kora hoyeche.
