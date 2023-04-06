@@ -35,3 +35,12 @@ Step_5:
     -registration validation e error handeling er bepar ta edit kora hoyeche.
     -try-catch er catch k handle korar jonne util namer ekta folder create kora hoyeche. er por sekhane catch er shob error handle kora hoyeche
     -ekhon porjonto amra frontend niye kono kaj korini. step_1-5 just backend er jonne prostut kora hoyeche.
+
+Step_6:
+
+    -eikane just frontend er setup kora hoyeche.
+    -er jonne fist e amader cd client diye directory change kore nite hobe
+    -sekhane kichu dependency install korte hobe
+    -dependency gulo amra package.json e gelei dekhte pabo
+    -ekhane client folder e frontend er kaj kora hoyeche
+    -client er bahir e backend er kaj kora hoyeche.
