@@ -27,3 +27,5 @@
     "validator": "^13.9.0"
   }
 }
+// for run this code
+// npm run dev
